@@ -1,5 +1,6 @@
 \documentclass[a4paper]{article}
 \usepackage{amsmath}
+\usepackage{amssymb}
 \usepackage{amsthm}
 \newtheorem{thm}{Theorem}
 \usepackage[english]{babel}
@@ -22,7 +23,7 @@
 \maketitle
 
 %\begin{abstract}
-%These notes will define the special statistical functions known as %\textit{moment generating functions} and prove several related theorems.
+%These notes will define the special statistical functions known as %\textit{moment generating functions} and prove several related theorems. 
 %\end{abstract}
 
 \section{Introduction}
@@ -47,7 +48,7 @@ The \textbf{moment-generating function $m(t)$ for a random variable $Y$}: $m(t)=
 Consider the following:
 $$e^{tY} = 1+ty+\frac{(ty)^2}{2!}+\frac{(ty)^3}{3!}+ \cdots$$
 \quad Assuming $\mu'_k$ is finite for $k = 1,2,3,...$
-\begin{align*}
+\begin{align*} 
 E(e^{tY})&= \sum_y e^{tY}p(y) \\
 {}&= \sum_y \bigg[1+ty+\frac{(ty)^2}{2!}+\frac{(ty)^3}{3!}+ \cdots\bigg] \\
 {}&= \sum_y p(y) +\sum_y ty\cdot p(y) + \sum_y\frac{(ty)^2}{2!}+\cdots \\
@@ -56,12 +57,12 @@ E(e^{tY})&= \sum_y e^{tY}p(y) \\
 \end{defn} % definition 2.3 finally over...
 \bigbreak
 % Here comes the theorem...
-\begin{thm} If $m(t)$ exists, then $\forall k \in \mathbb{Z}^+,$
+\begin{thm} If $m(t)$ exists, then $\forall k \in \mathbb{Z}^+,$ 
 $$\frac{\delta^k m(t)}{\delta t^k} \bigg]_{t=0} = m^{(k)}(0) = \mu_k'.$$
 \end{thm}
-% Proof:
+% Proof: 
 \begin{proof} Begin with the definition of $m(t)$, and then take its $k^{th}$ derivative:
-\begin{align*}
+\begin{align*} 
 \\m(t)&=E(e^{tY})
 \\{}&=1+ t\mu'_1 + \frac{t^2}{2!}\mu'_2 + \frac{t^3}{3!}\mu'_3 + \cdots
 \\m'(t)&=\mu'_1+ t\mu'_2 + \frac{t^2}{2!}\mu'_3 + \frac{t^3}{3!}\mu'_4+\cdots
@@ -74,6 +75,23 @@ $$\frac{\delta^k m(t)}{\delta t^k} \bigg]_{t=0} = m^{(k)}(0) = \mu_k'.$$
 \end{align*}
 \end{proof}
 
+\section{Examples}
+\begin{exmp}
+\textit{Finding mean and variance for a binomial distribution.}
+\bigbreak Consider binomial random variable $X$:
+$$m(t)=[(1-p)+pe^t]^n$$
+$$m'(t)=n\cdot[(1-p)+pe^t]^{n-1}\cdot pe^t$$
+\quad \: Evaluated at $t=0$, we find the mean:
+$$m'(0)=\mu = np.$$
+\quad \: To find the variance, we aim to compute 
+$$V(x) = E(x^2)-[E(x)]^2$$
+\quad \: This means we will have to take the second derivative of $m(t)$ to get $E(x^2)$:
+$$m''(t)=n\cdot[(1-p)+pe^t]^{n-1}\cdot (pe^t)+(pe^t)^2\cdot n(n-1)\cdot[(1-p)+pe^t]^{n-2}$$
+\quad \: Evaluated at $t=0$, we find $E(x^2)$ and subtract $[E(x)]^2$: 
+$$m''(0) - (m'(0))^2 = np+p^2\cdot n(n-1)-(np)^2=np+(np)^2-p^2n-(np)^2$$
+$$\therefore \quad V(x) = np(1-p)$$
+\end{exmp}
+\end{document}
 \section{Examples}
 
 \end{document}
