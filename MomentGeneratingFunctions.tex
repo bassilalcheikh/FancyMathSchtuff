@@ -1,0 +1,79 @@
+\documentclass[a4paper]{article}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\newtheorem{thm}{Theorem}
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage[colorinlistoftodos]{todonotes}
+\usepackage{amsfonts}
+
+\theoremstyle{definition}
+\newtheorem{defn}{Definition}[section]
+\newtheorem{conj}{Conjecture}[section]
+\newtheorem{exmp}{Example}[section]
+
+\title{Moment Generating Functions}
+
+\author{Bassil Alcheikh}
+
+\date{\today}
+\begin{document}
+\maketitle
+
+%\begin{abstract}
+%These notes will define the special statistical functions known as %\textit{moment generating functions} and prove several related theorems.
+%\end{abstract}
+
+\section{Introduction}
+The motivation behind moment generating functions is to find (or prove) a particular probability distribution $p(y)$ for some random variable $Y$. Thus,
+\begin{itemize}
+   \item  for $p(y), \: m(t)$ exists $\implies m(t)$ is unique
+   \item  moment generating functions (MFGs) can be used to establish equivalence between two probability distributions
+\end{itemize}
+\section{Definitions}
+
+\begin{defn} % Definition 2.1
+The \textbf{$k^{th}$ moment of a random variable $Y$} taken about the origin is equal to E$(Y^k)$ and is denoted by $\mu'_{k}.$
+\end{defn}
+\bigbreak
+\begin{defn} % Definition 2.2
+The \textbf{$k^{th}$ moment of a random variable $Y$} taken about its mean is equal to E[$(Y-\mu)^k$] and is denoted by $\mu'_{k}.$
+\end{defn}
+\bigbreak
+\begin{defn} % Definition 2.3
+The \textbf{moment-generating function $m(t)$ for a random variable $Y$}: $m(t)=$ E$(e^{tY})$; $m(t)$ exists if $\exists b \in \mathbb{R}^+: m(t)$ is finite for $|t| \le b.$
+\bigbreak
+Consider the following:
+$$e^{tY} = 1+ty+\frac{(ty)^2}{2!}+\frac{(ty)^3}{3!}+ \cdots$$
+\quad Assuming $\mu'_k$ is finite for $k = 1,2,3,...$
+\begin{align*}
+E(e^{tY})&= \sum_y e^{tY}p(y) \\
+{}&= \sum_y \bigg[1+ty+\frac{(ty)^2}{2!}+\frac{(ty)^3}{3!}+ \cdots\bigg] \\
+{}&= \sum_y p(y) +\sum_y ty\cdot p(y) + \sum_y\frac{(ty)^2}{2!}+\cdots \\
+{}&= 1+ t\mu'_1 + \frac{t^2}{2!}\mu'_2 + \frac{t^3}{3!}\mu'_3 + \cdots
+\end{align*}
+\end{defn} % definition 2.3 finally over...
+\bigbreak
+% Here comes the theorem...
+\begin{thm} If $m(t)$ exists, then $\forall k \in \mathbb{Z}^+,$
+$$\frac{\delta^k m(t)}{\delta t^k} \bigg]_{t=0} = m^{(k)}(0) = \mu_k'.$$
+\end{thm}
+% Proof:
+\begin{proof} Begin with the definition of $m(t)$, and then take its $k^{th}$ derivative:
+\begin{align*}
+\\m(t)&=E(e^{tY})
+\\{}&=1+ t\mu'_1 + \frac{t^2}{2!}\mu'_2 + \frac{t^3}{3!}\mu'_3 + \cdots
+\\m'(t)&=\mu'_1+ t\mu'_2 + \frac{t^2}{2!}\mu'_3 + \frac{t^3}{3!}\mu'_4+\cdots
+\\m''(t)&=\mu'_2+ t\mu'_3 + \frac{t^2}{2!}\mu'_4 + \frac{t^3}{3!}\mu'_5+\cdots
+\\\text{In general terms,}
+\\m^{k}(t)&=\mu'_{(k)}+ t\mu'_{(k+1)} + \frac{t^2}{2!}\mu'_{(k+2)} + \frac{t^3}{3!}\mu'_{(k+3)}+\cdots
+\\\text{Evaluated at }t=0,
+\\m^{k}(0)&=\mu'_{(k)}+ 0\cdot \mu'_{(k+1)} + \frac{0^2}{2!}\mu'_{(k+2)} + \frac{0^3}{3!}\mu'_{(k+3)}+\cdots
+\\m^{k}(0)&=\mu'_{(k)}
+\end{align*}
+\end{proof}
+
+\section{Examples}
+
+\end{document}
