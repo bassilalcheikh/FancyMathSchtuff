@@ -1,0 +1,73 @@
+\documentclass[a4paper]{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\newtheorem{thm}{Theorem}
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage[colorinlistoftodos]{todonotes}
+\usepackage{amsfonts}
+
+\theoremstyle{definition}
+\newtheorem{defn}{Definition}[section]
+\newtheorem{conj}{Conjecture}[section]
+\newtheorem{exmp}{Example}[section]
+
+\title{Bayes' Theorem and the Basis for Statistical Inference}
+\author{Bassil Alcheikh}
+%\date{\today}
+% Notes taken from: https://web.stanford.edu/~dntse/classes/cs70_fall09/n11.pdf
+\begin{document}
+\maketitle
+
+\section{Introduction}
+The motivation behind moment generating functions is to find (or prove) a particular probability distribution $p(y)$ for some random variable $Y$. Thus,
+\begin{itemize}
+   \item  for $p(y), \: m(t)$ exists $\implies m(t)$ is unique
+   \item  moment generating functions (MFGs) can be used to establish equivalence between two probability distributions
+\end{itemize}
+\section{Definitions}
+
+\begin{defn} % Definition 2.1: Conditional Probability
+The \textbf{conditional probability} of an event $A$ given an event $B$ is equal to:
+$$P(A|B) = \frac{P(A \cap B)}{P(B)},$$
+where $P(B) \neq 0$. This can be shown intuitively with a Venn diagram.
+\end{defn}
+\bigbreak
+
+\begin{defn} % Definition 2.2
+The \textbf{second definition here}
+\end{defn}
+\bigbreak
+% Here comes the theorem...
+\begin{thm} \textbf{Bayes' Rule.} For any two events $A$ and $B$,
+$$P(A|B) = \frac{P(B|A)\cdot P(A)}{P(B)}, \quad \text{where } P(B) \neq 0.$$
+\end{thm}
+% Proof:
+\begin{proof} Consider events $A$ and $B$, where $P(A)$, $P(B) > 0$. According to the definition of conditional probability,
+\begin{align*}
+\\P(A|B) &= \frac{P(A \cap B)}{P(B)} \implies P(A\cap B) = P(A|B)\cdot P(B)
+\\{}&\implies P(A\cap B) = P(B|A) \cdot P(A)
+\\{}&\implies P(A|B)\cdot P(B) = P(B|A) \cdot P(A)
+\\ \therefore \quad P(A|B) &= \frac{P(B|A)\cdot P(A)}{P(B)}
+\end{align*}
+\end{proof}
+
+\section{Examples}
+\begin{exmp}
+\textit{Finding mean and variance for a binomial distribution.}
+\bigbreak Consider binomial random variable $X$:
+$$m(t)=[(1-p)+pe^t]^n$$
+$$m'(t)=n\cdot[(1-p)+pe^t]^{n-1}\cdot pe^t$$
+\quad \: Evaluated at $t=0$, we find the mean:
+$$m'(0)=\mu = np.$$
+\quad \: To find the variance, we aim to compute
+$$V(x) = E(x^2)-[E(x)]^2$$
+\quad \: This means we will have to take the second derivative of $m(t)$ to get $E(x^2)$:
+$$m''(t)=n\cdot[(1-p)+pe^t]^{n-1}\cdot (pe^t)+(pe^t)^2\cdot n(n-1)\cdot[(1-p)+pe^t]^{n-2}$$
+\quad \: Evaluated at $t=0$, we find $E(x^2)$ and subtract $[E(x)]^2$:
+$$m''(0) - (m'(0))^2 = np+p^2\cdot n(n-1)-(np)^2=np+(np)^2-p^2n-(np)^2$$
+$$\therefore \quad V(x) = np(1-p)$$
+\end{exmp}
+\end{document}
