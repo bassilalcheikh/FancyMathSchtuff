@@ -8,6 +8,9 @@
 \usepackage{graphicx}
 \usepackage[colorinlistoftodos]{todonotes}
 \usepackage{amsfonts}
+\usepackage [english]{babel}
+\usepackage [autostyle, english = american]{csquotes}
+\MakeOuterQuote{"}
 
 \theoremstyle{definition}
 \newtheorem{defn}{Definition}[section]
@@ -21,16 +24,29 @@
 \maketitle
 
 \section{Introduction}
-\textit{Statistical inference} is the process of analyzing data to deduce properties of an underlying distribution. As more information becomes available, \textit{Bayesian inference} specifically aims to update the probability for a given hypothesis. Bayes' Rule makes this sort of inference possible. 
+\textit{Statistical inference} is the process of analyzing data to deduce properties of an underlying distribution. As more information becomes available, \textit{Bayesian inference} specifically aims to update the probability for a given hypothesis. Bayes' Rule makes this sort of inference possible.
+\bigbreak
+The Bayesian rule (and Bayesian analysis in general) rests on the dichotomy between \textit{a priori} and \textit{a posteriori} knowledge- the former meaning "knowledge proceeding from theoretical deduction," and the latter referring to "knowledge gained from empirically/from observation." For example, for two events $X, Y$, $P(X)$ is known \textit{a priori}, whereas $P(Y|X)$ is known \textit{a posteriori.}
 \section{Definitions}
 
 \begin{defn} % Definition 2.1: Conditional Probability
 The \textbf{conditional probability} of an event $A$ given an event $B$ is equal to:
-$$P(A|B) = \frac{P(A \cap B)}{P(B)},$$
+\begin{equation}
+P(A|B) = \frac{P(A \cap B)}{P(B)},
+\end{equation}
 where $P(B) \neq 0$. This can be shown intuitively with a Venn diagram.
 \end{defn}
+\begin{defn} % Definition 2.2: Conditional Probability (General)
+The \textbf{conditional probability of an event $A$ given \textit{n} events $B_n$} is equal to:
+\begin{equation}
+P(A|X_1,...,X_n) = \frac{P(A)\cdot P(X_1,...,X_n|A)}{P(X_1,...,X_n)}
+\end{equation}
+\begin{equation}
+= \frac{P(A)\cdot \prod\limits_{i=1}^n P(X_i|A)}{P(A) \prod\limits_{i=1}^n P(X_i|A)+P(\overline A)\prod\limits_{i=1}^n P(X_i|\overline A)}
+\end{equation}
+\end{defn}
 \bigbreak
-\begin{defn} % Definition 2.2: Total Probability 
+\begin{defn} % Definition 2.3: Total Probability 
 \textbf{Total Probability.} For any two events $A, B$:
 \begin{align*} 
 \\P(A) &= P(A \cap B)+P(A\cap\overline{B})
@@ -39,20 +55,23 @@ where $P(B) \neq 0$. This can be shown intuitively with a Venn diagram.
 \end{align*} 
 \end{defn}
 \bigbreak
-\begin{defn} % Definition 2.3: Independence
+\begin{defn} % Definition 2.4: Independence
 \textbf{Independence.} Two events $A, B$ are \textit{independent} if: 
 $$P(A\cap B) = P(A) \cdot P(B).$$
 Note what this implies: 
 $$P(A\cap B) = P(A) \cdot P(B) \implies P(A) = P(A|B), \; P(B) = P(B|A)$$
 \end{defn}
 \bigbreak
-\begin{defn} % Definition 2.4: Disjoint Events
+\begin{defn} % Definition 2.5: Disjoint Events
 \textbf{Disjoint Events/"mutually exclusive."} Finite events $A_i$ for $i: 1 \leq i \leq n$ are \textit{disjoint} if no pair contain a common sample point. In layman's terms, no two events can occur at the same time.
 \end{defn}
 
 % THEOREM 1: Bayes' Rule
-\begin{thm} \textbf{Bayes' Rule.} For any two events $A$ and $B$, 
-$$P(A|B) = \frac{P(B|A)\cdot P(A)}{P(B)}, \quad \text{where } P(B) \neq 0.$$ 
+\begin{thm} \textbf{Bayes' Rule.} For any two events $A$ and $B$,
+\begin{equation}
+P(A|B) = \frac{P(B|A)\cdot P(A)}{P(B)}, 
+\end{equation}
+$\quad \text{where } P(B) \neq 0$
 \end{thm}
 % Proof: 
 \begin{proof} Consider events $A$ and $B$, where $P(A)$, $P(B) > 0$. According to the definition of conditional probability, 
@@ -65,30 +84,64 @@ $$P(A|B) = \frac{P(B|A)\cdot P(A)}{P(B)}, \quad \text{where } P(B) \neq 0.$$
 \end{proof}
 % THEOREM 2: Inclusion/Exclusion
 \begin{thm} \textbf{Inclusion/Exclusion Principle.} For some finite set of events $A_i$ where $1 \leq i \leq n$ in some probability space, the probability of their union is equal to: 
-$$P\bigg(\bigcup_{i=1}^n A_i \bigg) = \sum_{i=1}^n A_i - \sum_{\{i,j\}} [A_i \cap A_j] + \sum_{\{i,j,k\}} [A_i \cap A_j \cap A_k] - \cdots \pm P\bigg(\bigcap_{i=1}^n A_i \bigg),$$
+$$P\bigg(\bigcup_{i=1}^n A_i \bigg) = \sum_{i=1}^n P(A_i) - \sum_{\{i,j\}} P[A_i \cap A_j] + \sum_{\{i,j,k\}} P[A_i \cap A_j \cap A_k] - \cdots \pm P\bigg(\bigcap_{i=1}^n A_i \bigg),$$
 where $\{i, j\}$ denotes all unordered pairs with $i \neq j$, $\{i, j, k\}$ denotes all unordered triples of distinct elements, and so forth.
 \end{thm}
-% Proof: 
-\begin{proof} INSERT PROOF HERE
-\begin{align*} 
-\\ {} &= {}
-\\ {} &= {}
-\end{align*}
-\end{proof}
+This is taken directly from the principle of set Inclusion and Exclusion; a proof should be provided elsewhere as an exercise in set theory.
+
 \section{Examples}
 \begin{exmp}
-\textit{Finding mean and variance for a binomial distribution.}
-\bigbreak Consider binomial random variable $X$:
-$$m(t)=[(1-p)+pe^t]^n$$
-$$m'(t)=n\cdot[(1-p)+pe^t]^{n-1}\cdot pe^t$$
-\quad \: Evaluated at $t=0$, we find the mean:
-$$m'(0)=\mu = np.$$
-\quad \: To find the variance, we aim to compute 
-$$V(x) = E(x^2)-[E(x)]^2$$
-\quad \: This means we will have to take the second derivative of $m(t)$ to get $E(x^2)$:
-$$m''(t)=n\cdot[(1-p)+pe^t]^{n-1}\cdot (pe^t)+(pe^t)^2\cdot n(n-1)\cdot[(1-p)+pe^t]^{n-2}$$
-\quad \: Evaluated at $t=0$, we find $E(x^2)$ and subtract $[E(x)]^2$: 
-$$m''(0) - (m'(0))^2 = np+p^2\cdot n(n-1)-(np)^2=np+(np)^2-p^2n-(np)^2$$
-$$\therefore \quad V(x) = np(1-p)$$
+\textbf{Diagnostic Efficacy.} A pharmaceutical company is marketing a new test for a certain medical condition. According to clinical trials, the test has the following properties:
+\begin{enumerate}
+\item When applied to an affected person, the test comes up positive in 90\% of cases, and negative in 10\% (i.e., false negatives)
+\item When applied to a healthy person, the test comes up negative in 80\% of cases, and positive in 20\% (i.e., false positives)
+\item Roughly 5\% of the population has this condition
+\end{enumerate}
+Let $A$ be the event that a randomly chosen person chosen is affected by the condition, and $B$ the event that said person tests positive. Here's what we know:
+\begin{enumerate}
+\item $P(B|A)=0.90$, $P(\overline B|A)=0.10$
+\item $P(\overline B|\overline A)=0.80$, $P(B|\overline A)=0.20$
+\item $P(A)=0.05$, $P(\overline A)=1-P(A)=0.95$
+\end{enumerate}
+We need to find $P(A|B),$ and to do so, we need to find $P(B)$. We proceed accordingly:
+\begin{align*}
+\\P(A|B)&=\frac{P(B|A)\cdot P(A)}{P(B)}
+\\{}&=\frac{P(B|A)\cdot P(A)}{P(B|A)\cdot P(A)+P(B|\overline A)\cdot P(\overline A)}
+\\{}&=\frac{0.90\cdot 0.05}{0.90\cdot 0.05+0.20\cdot 0.95}
+\\{}&\approx 0.19149
+\end{align*}
+Thus, there's a $19.149\%$ chance that one who tests positive for this condition actually has the condition.
+
+\end{exmp}
+
+\begin{exmp}
+\textbf{Monty Hall Problem.}
+Taken from Marilyn Vos Savant in the "Ask Marilyn" column of the \textit{Parade} magazine:
+\bigbreak "Suppose you're on a game show, and you're given a choice of three doors. Behind one door is a car; behind the others, goats. You pick a door—say No. 1—and the host, who knows what's behind the doors, opens another door—say No. 3—which has a goat. He then says to you, Do you want to pick door No. 2? Is it to your advantage to switch your choice?"
+\bigbreak
+Without loss of generality, suppose that the contestant has chosen to open door No. 1 and that the host decides to open door No. 3 to reveal a goat; label these events $X_1$ and $H_3,$ respectively. For $i \in \{1,2,3\},$ let $C_i$ be the event that the car is behind door $i$. We want to calculate $$P(C_2|H_3,X_1),$$
+the conditional probability that the car is behind door No. 2, given that the contestant has chosen door No. 1 and the host has opened door No. 3. According to Bayes' Theorem,
+$$P(C_2|H_3,X_1) = \frac{P(H_3|C_2,X_1)\cdot P(C_2 \cap X_1)}{P(H_3 \cap X_1)}$$
+Expanded, this gives us:
+$$P(C_2|H_3,X_1) = \frac{P(H_3|C_2,X_1)\cdot P(C_2 \cap X_1)}{P(H_3|C_1,X_1)\cdot P(C_1 \cap X_1)+P(H_3|C_2,X_1)\cdot P(C_2 \cap X_1)+P(H_3|C_3,X_1)\cdot P(C_3\cap X_1)}$$
+Note that because $X_1$ has already happened:
+$$P(C_2 \cap X_1)=P(C_2|X_1)\cdot P(X_1)=P(C_2)\cdot P(X_1) = \frac{1}{3} \cdot 1 = \frac{1}{3}$$
+The same logic applies to other intersections between $C_i$ and $X_1$, so our equation is now:
+$$P(C_2|H_3,X_1) = \frac{P(H_3|C_2,X_1)}{P(H_3|C_1,X_1)+P(H_3|C_2,X_1)+P(H_3|C_3,X_1)}$$
+Finding the values for the probabilities listed above is not difficult:
+$$P(H_3|C_1,X_1)=\frac1{2}$$
+$$P(H_3|C_2,X_1)=1$$
+$$P(H_3|C_3,X_1)=0$$
+$$\therefore P(C_2|H_3,X_1) = \frac{1}{\frac1{2}+1+0} = \frac{2}{3}$$
+Suppose that the contestant did not switch his or her choice; to find $P(C_1|H_3,X_1)$, we proceed accordingly:
+$$P(C_1|H_3,X_1) = \frac{P(H_3|C_1,X_1)\cdot P(C_1 \cap X_1)}{P(H_3 \cap X_1)}$$
+$$P(C_1|H_3,X_1) = \frac{P(H_3|C_1,X_1)\cdot P(C_1 \cap X_1)}{P(H_3|C_1,X_1)\cdot P(C_1 \cap X_1)+P(H_3|C_2,X_1)\cdot P(C_2 \cap X_1)+P(H_3|C_3,X_1)\cdot P(C_3\cap X_1)}$$
+Using the same reasoning as from above, this equation now becomes 
+$$P(C_1|H_3,X_1) = \frac{P(H_3|C_1,X_1)}{P(H_3|C_1,X_1)+P(H_3|C_2,X_1)+P(H_3|C_3,X_1)}$$
+Substituting the pertinent values, we get:
+$$P(C_1|H_3,X_1) = \frac{\frac1{2}}{\frac1{2}+1+0} = \frac1{3}.$$
+\bigbreak
+\bigbreak
+$$The \text{ } end.$$
 \end{exmp}
 \end{document}
